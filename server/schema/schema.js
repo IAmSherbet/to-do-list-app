@@ -29,10 +29,12 @@ const mutation = new GraphQLObjectType({
     addTodo: {
       type: TodoType,
       args: {
-        title: { type: GraphQLString }
+        title: { type: GraphQLString },
+        content: { type: GraphQLString },
+        labels: { type: GraphQLString },
       },
-      resolve(parentValue, { title }) {
-        return (new Todo({ title })).save()
+      resolve(parentValue, { title, content, labels }) {
+        return (new Todo({ title, content, labels, done: false })).save()
       }
     }
   }
