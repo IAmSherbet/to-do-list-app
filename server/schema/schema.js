@@ -36,6 +36,13 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { title, content, labels }) {
         return (new Todo({ title, content, labels, done: false })).save()
       }
+    },
+    deleteTodo: {
+      type: TodoType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(parentValue, { id }) {
+        return Todo.remove({ _id: id });
+      }
     }
   }
 })
