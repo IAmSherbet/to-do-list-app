@@ -15,13 +15,28 @@ const {
 const TodoType = new GraphQLObjectType({
   name: 'Todo',
   fields: {
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     title: { type: GraphQLString },
     content: { type: GraphQLString },
     done: { type: GraphQLBoolean },
     labels: { type: GraphQLString },
   }
 });
+
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addTodo: {
+      type: TodoType,
+      args: {
+        title: { type: GraphQLString }
+      },
+      resolve(parentValue, { title }) {
+        return (new Todo({ title })).save()
+      }
+    }
+  }
+})
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -34,7 +49,7 @@ const RootQuery = new GraphQLObjectType({
     },
     todo: {
       type: TodoType,
-      args: { id: { type: new GraphQLNonNull(GraphQLString) } },
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parentValue, { id }) {
         return Todo.findById(id);
       }
@@ -43,5 +58,6 @@ const RootQuery = new GraphQLObjectType({
 });
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation,
 });
