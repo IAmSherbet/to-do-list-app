@@ -1,9 +1,9 @@
 const express = require('express');
-const models = require('./server/models');
+const models = require('./models');
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const schema = require('./server/schema/schema');
+const schema = require('./schema/schema');
 
 const app = express();
 
@@ -26,6 +26,4 @@ app.use('/graphql', expressGraphQL({
   graphiql: true
 }));
 
-app.listen(4000, () => {
-  console.log('Listening');
-});
+module.exports = app;
