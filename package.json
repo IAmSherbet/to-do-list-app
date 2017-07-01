@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --ignore client"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +23,8 @@
     "lodash": "^4.17.4",
     "mongoose": "^4.11.0",
     "nodemon": "^1.11.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.0.0",
     "webpack-dev-middleware": "^1.11.0"
