@@ -4,6 +4,7 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { BrowserRouter, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import AppBar from 'material-ui/AppBar';
 
 import TodoList from './components/TodoList';
 
@@ -14,6 +15,10 @@ const Root = () => {
     <ApolloProvider client={client}>
       <MuiThemeProvider>
         <div>
+          <AppBar
+            title="My Todo List App"
+            style={{marginBottom: "24px"}}
+          />
           <BrowserRouter>
             <Route exact path="/" component={TodoList}/>
           </BrowserRouter>
