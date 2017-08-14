@@ -1,0 +1,41 @@
+.todoListWrapper {
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+}
+
+.card {
+  margin: 0.5em;
+  width: 300px;
+}
+
+.card .cardActions {
+  opacity: 1;
+}
+
+.actionButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99;
+}
+
+@media(min-width: 1025px) {
+  .card .cardActions  {
+    opacity: 0;
+  }
+
+  .card:hover .cardActions {
+    opacity: 1;
+  }
+}
