@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -8,9 +9,18 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+
 import s from './todolist.css';
+import fetchUndoneTodos from '../queries/fetchUndoneTodos';
+import deleteTodo from '../mutations/deleteTodo';
 
 class TodoList extends Component {
+  handleDelete(id) {
+    this.props.mutate({
+      variables: { id }
+    }).then(() => this.props.data.refetch());
+  }
+
   renderSongs() {
     return this.props.data.todos.map(todo => {
       return (
@@ -23,7 +33,8 @@ class TodoList extends Component {
             <IconButton>
               <DoneIcon color={'rgba(0,0,0,0.54)'}/>
             </IconButton>
-            <IconButton>
+            <IconButton
+              onClick={() => this.handleDelete(todo.id)}>
               <DeleteIcon color={'rgba(0,0,0,0.54)'}/>
             </IconButton>
             <IconButton>
@@ -55,14 +66,6 @@ class TodoList extends Component {
   }
 };
 
-const query = gql`
-  {
-    todos {
-      id
-      title
-      content
-    }
-  }
-`;
-
-export default graphql(query)(TodoList);
+export default graphql(deleteTodo)(
+  graphql(fetchAllTodos)(TodoList)
+);
