@@ -30,15 +30,20 @@ class TodoList extends Component {
           />
           <CardText>{ todo.content }</CardText>
           <CardActions className={s.cardActions}>
-            <IconButton>
+            <IconButton
+              tooltip="Mark as done"
+            >
               <DoneIcon color={'rgba(0,0,0,0.54)'}/>
             </IconButton>
             <IconButton
+              tooltip="Edit"
+            >
+              <EditIcon color={'rgba(0,0,0,0.54)'}/>
+            </IconButton>
+            <IconButton
+              tooltip="Delete"
               onClick={() => this.handleDelete(todo.id)}>
               <DeleteIcon color={'rgba(0,0,0,0.54)'}/>
-            </IconButton>
-            <IconButton>
-              <EditIcon color={'rgba(0,0,0,0.54)'}/>
             </IconButton>
           </CardActions>
         </Card>

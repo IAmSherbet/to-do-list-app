@@ -33,6 +33,8 @@
 @media(min-width: 1025px) {
   .card .cardActions  {
     opacity: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
   }
 
   .card:hover .cardActions {
