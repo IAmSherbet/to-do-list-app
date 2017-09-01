@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import { Link } from 'react-router-dom';
 
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
@@ -62,10 +63,12 @@ class TodoList extends Component {
             </div>
           </div>
         }
-        <FloatingActionButton
-          className={s.actionButton}>
-          <ContentAdd />
-        </FloatingActionButton>
+        <Link to="/add">
+          <FloatingActionButton
+            className={s.actionButton}>
+            <ContentAdd />
+          </FloatingActionButton>
+        </Link>
       </div>
     )
   }
