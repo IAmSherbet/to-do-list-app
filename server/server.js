@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const models = require('./models');
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
@@ -30,5 +31,11 @@ const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
 const webpackConfig = require('../webpack.config.js');
 app.use(webpackMiddleware(webpack(webpackConfig)));
+
+app.get('*', function (request, response){
+  response.sendFile(path.resolve('client','index.html'))
+})
+
+app.use(express.static('/client'));
 
 module.exports = app;

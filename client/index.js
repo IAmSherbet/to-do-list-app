@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import AppBar from 'material-ui/AppBar';
 
@@ -18,10 +18,10 @@ const Root = () => {
         title="My Todo List App"
         style={{marginBottom: "24px"}}
       />
-      <Switch>
+      <div>
         <Route exact path="/" component={TodoList}/>
         <Route path="/add" component={AddTodo}/>
-      </Switch>
+      </div>
     </div>
   );
 };
