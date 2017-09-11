@@ -23,7 +23,7 @@ class TodoList extends Component {
   }
 
   renderSongs() {
-    return this.props.data.todos.map(todo => {
+    return this.props.data.todosByDone.map(todo => {
       return (
         <Card key={ todo.id } className={s.card}>
           <CardHeader
@@ -75,5 +75,5 @@ class TodoList extends Component {
 };
 
 export default graphql(deleteTodo)(
-  graphql(fetchAllTodos)(TodoList)
+  graphql(fetchUndoneTodos)(TodoList)
 );
