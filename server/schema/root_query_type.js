@@ -4,6 +4,7 @@ const {
   GraphQLList,
   GraphQLID,
   GraphQLNonNull,
+  GraphQLBoolean,
 } = graphql;
 const mongoose = require('mongoose');
 const Todo = mongoose.model('todo');
@@ -16,6 +17,17 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(TodoType),
       resolve() {
         return Todo.find({});
+      }
+    },
+    todosByDone: {
+      type: new GraphQLList(TodoType),
+      args: {
+        done: {
+          type: new GraphQLNonNull(GraphQLBoolean)
+        }
+      },
+      resolve(parentValue, { done }) {
+        return Todo.find({ done });
       }
     },
     todo: {
