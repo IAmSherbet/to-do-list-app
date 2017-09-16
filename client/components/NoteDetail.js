@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
-import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
-import { Link, Redirect } from 'react-router-dom';
 
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link, Redirect } from 'react-router-dom';
 
 import fetchUndoneTodos from '../queries/fetchUndoneTodos';
 import fetchDoneTodos from '../queries/fetchDoneTodos';
-import addTodo from '../mutations/addTodo';
-import s from './addTodo.css';
+import s from './noteDetail.css'
 
-class AddTodo extends Component {
+class NoteDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      content: "",
+      id: this.props.id ? this.props.id : "",
+      title: this.props.title ? this.props.title : "",
+      content: this.props.content ? this.props.content : "",
       submitted: false,
     };
   }
@@ -24,16 +22,19 @@ class AddTodo extends Component {
   onSubmit() {
     event.preventDefault();
 
-    this.props.mutate({
-      variables: {
-        title: this.state.title,
-        content: this.state.content,
-      },
-      refetchQueries: [
-        { query: fetchUndoneTodos },
-        { query: fetchDoneTodos }
-      ],
-    })
+    if (this.props.mutate) {
+      this.props.mutate({
+        variables: {
+          id: this.state.id,
+          title: this.state.title,
+          content: this.state.content,
+        },
+        refetchQueries: [
+          { query: fetchUndoneTodos },
+          { query: fetchDoneTodos }
+        ],
+      })
+    }
 
     // Build in loading time here
 
@@ -47,7 +48,7 @@ class AddTodo extends Component {
       return (
         <section className={ s.wrapper }>
           <Link to="/" className={ s.backButton }>Back</Link>
-          <h4>Add new Todo</h4>
+          <h4>Add new note</h4>
           <TextField
             floatingLabelText="Title"
             onChange={ event => this.setState({ title: event.target.value }) }
@@ -57,7 +58,7 @@ class AddTodo extends Component {
             fullWidth
           /><br />
           <TextField
-            floatingLabelText="Description"
+            floatingLabelText="Content"
             onChange={ event => this.setState({ content: event.target.value }) }
             value={ this.state.content }
             name="content"
@@ -74,6 +75,6 @@ class AddTodo extends Component {
       )
     }
   }
-}
+};
 
-export default graphql(addTodo)(AddTodo);
+export default NoteDetail;

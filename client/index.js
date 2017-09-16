@@ -13,7 +13,9 @@ import MenuItem from 'material-ui/MenuItem';
 import TodoList from './components/TodoList';
 import TodosListDone from './components/TodosListDone';
 import TodosListUndone from './components/TodosListUndone';
-import AddTodo from './components/AddTodo';
+import AddNote from './components/AddNote';
+import EditNote from './components/EditNote';
+import NoteDetail from './components/NoteDetail';
 
 const client = new ApolloClient({});
 
@@ -58,8 +60,9 @@ class Root extends Component {
         </Drawer>
         <div>
           <Route exact path="/" component={TodosListUndone} />
-          <Route path="/add" component={AddTodo} />
+          <Route path="/add" component={AddNote} />
           <Route path="/done" component={TodosListDone} />
+          <Route path="/note/:id" component={EditNote} />
         </div>
       </div>
     );
