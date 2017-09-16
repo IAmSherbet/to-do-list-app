@@ -6,7 +6,8 @@ import { Link, Redirect } from 'react-router-dom';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import fetchAllTodos from '../queries/fetchAllTodos';
+import fetchUndoneTodos from '../queries/fetchUndoneTodos';
+import fetchDoneTodos from '../queries/fetchDoneTodos';
 import addTodo from '../mutations/addTodo';
 import s from './addTodo.css';
 
@@ -28,7 +29,10 @@ class AddTodo extends Component {
         title: this.state.title,
         content: this.state.content,
       },
-      refetchQueries: [{ query: fetchAllTodos }],
+      refetchQueries: [
+        { query: fetchUndoneTodos },
+        { query: fetchDoneTodos }
+      ],
     })
 
     // Build in loading time here

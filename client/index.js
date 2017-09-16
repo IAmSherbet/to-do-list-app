@@ -11,6 +11,8 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
 import TodoList from './components/TodoList';
+import TodosListDone from './components/TodosListDone';
+import TodosListUndone from './components/TodosListUndone';
 import AddTodo from './components/AddTodo';
 
 const client = new ApolloClient({});
@@ -55,8 +57,9 @@ class Root extends Component {
           </Link>
         </Drawer>
         <div>
-          <Route exact path="/" component={TodoList}/>
-          <Route path="/add" component={AddTodo}/>
+          <Route exact path="/" component={TodosListUndone} />
+          <Route path="/add" component={AddTodo} />
+          <Route path="/done" component={TodosListDone} />
         </div>
       </div>
     );
