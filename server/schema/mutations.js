@@ -33,6 +33,23 @@ const mutation = new GraphQLObjectType({
         return Todo.remove({ _id: id });
       }
     },
+    toggleCompletion: {
+      type: TodoType,
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        done: { type: GraphQLBoolean }
+      },
+      resolve(parentValue, args) {
+        return Todo.findById(args.id, function(err, todo) {
+          if (err) {
+            console.log('Error:', err);
+          } else {
+            todo.done = (args.done === null) ? todo.done : args.done;
+            todo.save();
+          }
+        })
+      }
+    },
     editTodo: {
       type: TodoType,
       args: {
@@ -40,7 +57,6 @@ const mutation = new GraphQLObjectType({
         title: { type: GraphQLString },
         content: { type: GraphQLString },
         labels: { type: GraphQLString },
-        done: { type: GraphQLBoolean }
       },
       resolve(parentValue, args) {
         return Todo.findById(args.id, function(err, todo) {
@@ -50,7 +66,6 @@ const mutation = new GraphQLObjectType({
             todo.title = args.title || todo.title;
             todo.content = args.content || todo.content;
             todo.labels = args.labels || todo.labels;
-            todo.done = (args.done !== null) ? args.done : todo.done;
             todo.save()
           }
         });
