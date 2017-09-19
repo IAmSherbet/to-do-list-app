@@ -10,8 +10,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 
 import s from './todolist.css';
 import ButtonDelete from './ButtonDelete';
-import ButtonDone from './ButtonDone';
-import ButtonUndo from './ButtonUndo';
+import ButtonToggleCompletion from './ButtonToggleCompletion';
 
 class TodoList extends Component {
   renderSongs() {
@@ -23,16 +22,12 @@ class TodoList extends Component {
           />
           <CardText>{ todo.content }</CardText>
           <CardActions className={s.cardActions}>
-            {
-              this.props.done
-              ? <ButtonUndo id={todo.id}/>
-              : <ButtonDone id={todo.id}/>
-            }
-            <IconButton
-              tooltip="Edit"
-            >
-              <EditIcon color={'rgba(0,0,0,0.54)'}/>
-            </IconButton>
+            <ButtonToggleCompletion id={todo.id} done={this.props.done ? false : true}/>
+            <Link to={`/note/${ todo.id }`}>
+              <IconButton tooltip="Edit">
+                <EditIcon color={'rgba(0,0,0,0.54)'}/>
+              </IconButton>
+            </Link>
             <ButtonDelete id={todo.id}/>
           </CardActions>
         </Card>

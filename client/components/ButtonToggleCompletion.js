@@ -3,14 +3,14 @@ import { graphql } from 'react-apollo';
 import IconButton from 'material-ui/IconButton';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 
-import editTodoDone from '../mutations/editTodoDone';
+import toggleCompletion from '../mutations/toggleCompletion';
 import fetchUndoneTodos from '../queries/fetchUndoneTodos';
 import fetchDoneTodos from '../queries/fetchDoneTodos';
 
-class ButtonDone extends Component {
-  handleDone(id) {
+class ButtonToggleCompletion extends Component {
+  handleDone(id, done) {
     this.props.mutate({
-      variables: { id },
+      variables: { id, done },
       refetchQueries: [
         { query: fetchUndoneTodos },
         { query: fetchDoneTodos }
@@ -22,7 +22,7 @@ class ButtonDone extends Component {
     return (
       <IconButton
         tooltip="Mark as complete"
-        onClick={() => this.handleDone(this.props.id)}
+        onClick={() => this.handleDone(this.props.id, this.props.done)}
       >
         <DoneIcon color={'rgba(0,0,0,0.54)'}/>
       </IconButton>
@@ -30,4 +30,4 @@ class ButtonDone extends Component {
   }
 }
 
-export default graphql(editTodoDone)(ButtonDone);
+export default graphql(toggleCompletion)(ButtonToggleCompletion);
