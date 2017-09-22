@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link, Redirect } from 'react-router-dom';
+import marked from 'marked';
 
 import fetchUndoneTodos from '../queries/fetchUndoneTodos';
 import fetchDoneTodos from '../queries/fetchDoneTodos';
@@ -15,6 +16,8 @@ class NoteDetail extends Component {
       id: this.props.id ? this.props.id : "",
       title: this.props.title ? this.props.title : "",
       content: this.props.content ? this.props.content : "",
+      editing: false,
+      contentMarkdown: "",
       submitted: false,
     };
   }
@@ -41,6 +44,11 @@ class NoteDetail extends Component {
     this.setState({ submitted: true });
   }
 
+  handleMarkdown() {
+    // window.alert(marked(this.state.content));
+    this.setState({ editing: false, contentMarkdown: marked(this.state.content) });
+  }
+
   render() {
     if (this.state.submitted) {
       return <Redirect to="/" />
@@ -60,8 +68,12 @@ class NoteDetail extends Component {
           <TextField
             floatingLabelText="Content"
             onChange={ event => this.setState({ content: event.target.value }) }
-            value={ this.state.content }
+            value={ this.state.editing
+              ? this.state.content
+              : this.state.contentMarkdown }
             name="content"
+            onFocus={ event => this.setState({ editing: true })}
+            onBlur={this.handleMarkdown.bind(this)}
             multiLine
             fullWidth
           /><br />
