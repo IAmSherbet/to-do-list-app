@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router-dom';
+import marked from 'marked';
 
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
@@ -13,6 +14,15 @@ import ButtonDelete from './ButtonDelete';
 import ButtonToggleCompletion from './ButtonToggleCompletion';
 
 class TodoList extends Component {
+  constructor(props) {
+    super(props);
+    this.handleMarkdown = this.handleMarkdown.bind(this);
+  }
+
+  handleMarkdown(content) {
+    return {__html: marked(content)}
+  }
+
   renderSongs() {
     return this.props.todos.map(todo => {
       return (
@@ -20,7 +30,9 @@ class TodoList extends Component {
           <CardHeader
             title={ todo.title }
           />
-          <CardText>{ todo.content }</CardText>
+          <CardText
+            dangerouslySetInnerHTML={this.handleMarkdown(todo.content)}
+          />
           <CardActions className={s.cardActions}>
             <ButtonToggleCompletion id={todo.id} done={this.props.done ? false : true}/>
             <Link to={`/note/${ todo.id }`}>
