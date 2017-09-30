@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import DoneIcon from 'material-ui/svg-icons/action/done';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import Divider from 'material-ui/Divider';
 
 import s from './todolist.css';
 import ButtonDelete from './ButtonDelete';
@@ -29,7 +30,9 @@ class TodoList extends Component {
         <Card key={ todo.id } className={s.card}>
           <CardHeader
             title={ todo.title }
+            titleStyle={{ fontWeight: 600 }}
           />
+          <Divider />
           <CardText
             dangerouslySetInnerHTML={this.handleMarkdown(todo.content)}
           />
