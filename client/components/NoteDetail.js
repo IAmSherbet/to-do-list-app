@@ -86,7 +86,6 @@ class NoteDetail extends Component {
       return (
         <section className={ s.wrapper }>
           <Link to="/" className={ s.backButton }>Back</Link>
-          <h4>Add new note</h4>
           <TextField
             floatingLabelText="Title"
             onChange={ event => this.setState({ title: event.target.value }) }
