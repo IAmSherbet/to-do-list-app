@@ -16,6 +16,8 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.17.2",
+    "browser-sync": "^2.18.13",
+    "browser-sync-webpack-plugin": "^1.2.0",
     "css-loader": "^0.28.4",
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
